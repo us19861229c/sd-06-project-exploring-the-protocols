@@ -1,5 +1,7 @@
 const net = require('net');
 
+const os = require('os');
+
 const { getLocationInfos } = require('./location');
 
 const getHeaderValue = (data, header) => {
@@ -17,12 +19,19 @@ const endOfResponse = '\r\n\r\n';
 const server = net.createServer((socket) => {
   socket.on('data', (data) => {
     const clientIP = getHeaderValue(data.toString(), 'X-Forwarded-For');
+    const deviceClient = getHeaderValue(data.toString(), 'User-Agent');
+
     getLocationInfos(clientIP, (locationData) => {
       socket.write(startOfResponse);
       socket.write('<html><head><meta http-equiv="content-type" content="text/html;charset=utf-8">');
       socket.write('<title>Trybe 🚀</title></head><body>');
       socket.write('<H1>Explorando os Protocolos 🧐🔎</H1>');
       socket.write(`<p data-testid="ip">${clientIP}</p>`);
+      socket.write(`<p data-testid="device">${deviceClient}</p>`);
+      socket.write(`<p data-testid="device">${deviceClient}</p>`);
+      socket.write(`<p data-testid="arch">${os.platform()}</p>`);
+      socket.write(`<p data-testid="cpu">${os.cpus().toString()}</p>`);
+      socket.write(`<p data-testid="memory">${os.totalmem()}</p>`);
       socket.write(`<p data-testid="city">${locationData.city}</p>`);
       socket.write(`<p data-testid="postal_code">${locationData.postal_code}</p>`);
       socket.write(`<p data-testid="region">${locationData.region}</p>`);
