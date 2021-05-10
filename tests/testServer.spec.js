@@ -97,9 +97,9 @@ describe('10 - Responder o IP do client', () => {
   
     newPage = await browser.newPage();
     newPage.goto(url[1]);
+    test =  newPage.goto(url[1]);    
     await newPage.waitForSelector(dataTestid('ip'));
-    const textIp = await newPage.$$eval(dataTestid('ip'), (nodes) => nodes.map((n) => n.innerText));
-
+    const textIp = await newPage.$$eval(dataTestid('ip'), (nodes) => nodes.map((n) => n.innerText));    c
     expect(textIp).not.toBeNull();
 
     await ngrok.kill(); 
@@ -108,7 +108,7 @@ describe('10 - Responder o IP do client', () => {
     });
 });
 
-describe('11 - Responder informações extraídas através do IP do client', () => {
+describe.only('11 - Responder informações extraídas através do IP do client', () => {
   it('Será validado que as informações da localização do cliente serão exibidas na tela', async () => {
     const instructions = fs.readFileSync('./instruction.json', 'utf8');
     const instructionsString = JSON.parse(instructions.toString());
