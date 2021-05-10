@@ -108,7 +108,7 @@ describe('10 - Responder o IP do client', () => {
     });
 });
 
-describe.only('11 - Responder informações extraídas através do IP do client', () => {
+describe('11 - Responder informações extraídas através do IP do client', () => {
   it('Será validado que as informações da localização do cliente serão exibidas na tela', async () => {
     const instructions = fs.readFileSync('./instruction.json', 'utf8');
     const instructionsString = JSON.parse(instructions.toString());
